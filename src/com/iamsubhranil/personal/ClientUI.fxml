@@ -29,5 +29,5 @@
     </SplitPane>
     <Label fx:id="statusLabel" text="Connection status : "/>
     <TextArea fx:id="terminalField" editable="false" prefHeight="200.0" prefWidth="200.0" wrapText="true"/>
-    <TextField fx:id="commandField" onAction="#sendCommandAndErase"/>
+    <TextField fx:id="commandField"/>
 </VBox>
