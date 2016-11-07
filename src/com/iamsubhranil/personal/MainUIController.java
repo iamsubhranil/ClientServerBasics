@@ -16,7 +16,7 @@ import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable {
+public class MainUIController implements Initializable {
     public TextField serverIPField;
     public TextField connectionPortField;
     public Button createClientButton;

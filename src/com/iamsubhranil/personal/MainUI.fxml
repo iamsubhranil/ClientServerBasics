@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
             minWidth="-Infinity" prefHeight="538.0" prefWidth="600.0" stylesheets="@../../../styles/MyMetro.css"
-            xmlns="http://javafx.com/javafx/8.0.60" fx:controller="com.iamsubhranil.personal.Controller">
+            xmlns="http://javafx.com/javafx/8.0.60" fx:controller="com.iamsubhranil.personal.MainUIController">
     <top>
         <Label styleClass="label-big" text="Client Server Test" BorderPane.alignment="CENTER"/>
     </top>
