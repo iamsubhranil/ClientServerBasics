@@ -1,11 +1,15 @@
 package com.iamsubhranil.personal;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.ConnectException;
@@ -37,27 +41,36 @@ public class MainUIController implements Initializable {
 
     }
 
+    private void loadClientUI(ClientThread clientThread) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ClientUI.fxml"));
+        Parent root = fxmlLoader.load();
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        ClientController clientController = fxmlLoader.<ClientController>getController();
+        clientController.setupAndStartThread(clientThread);
+        stage.setScene(scene);
+        stage.show();
+    }
+
     /*Method invoked when user presses Create button in client section */
     public void createClient(ActionEvent actionEvent) {
         try {
             Socket socket = new Socket(serverIPField.getText(), Integer.parseInt(connectionPortField.getText()));
             ClientThread clientThread = new ClientThread(socket);
-            clientThread.start();
-            clientCreationStatusLabel.setText("Successfully created client!");
+            loadClientUI(clientThread);
+            clientCreationStatusLabel.setText("Successfully created client.");
         } catch (UnknownHostException e) {
             clientCreationStatusLabel.setText("Unknown host!");
-            System.err.println("Fatal error while implementing socket!");
-            e.printStackTrace();
         } catch (ConnectException e) {
             clientCreationStatusLabel.setText("Connection refused by remote!");
-            System.err.println("Fatal error while implementing socket!");
-            e.printStackTrace();
         } catch (NumberFormatException e) {
-            clientCreationStatusLabel.setText("Port must be an integer");
+            clientCreationStatusLabel.setText("Port must be an integer!");
         } catch (IOException e) {
-            clientCreationStatusLabel.setText("IO error occured!");
+            clientCreationStatusLabel.setText("IO error occurred while connecting!");
             System.err.println("Fatal error while implementing socket!");
             e.printStackTrace();
+        } catch (IllegalArgumentException iae) {
+            clientCreationStatusLabel.setText("Port index is out of range!");
         }
     }
 
