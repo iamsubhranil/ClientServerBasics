@@ -7,8 +7,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.Socket;
@@ -43,8 +41,8 @@ public class MainUIController implements Initializable {
     public void createClient(ActionEvent actionEvent) {
         try {
             Socket socket = new Socket(serverIPField.getText(), Integer.parseInt(connectionPortField.getText()));
-            BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(socket.getOutputStream());
-            BufferedInputStream bufferedInputStream = new BufferedInputStream(socket.getInputStream());
+            ClientThread clientThread = new ClientThread(socket);
+            clientThread.start();
             clientCreationStatusLabel.setText("Successfully created client!");
         } catch (UnknownHostException e) {
             clientCreationStatusLabel.setText("Unknown host!");
@@ -66,7 +64,7 @@ public class MainUIController implements Initializable {
     /*Method invoked when user presses Create button in Server section */
     public void createServer(ActionEvent actionEvent) {
         try {
-            ServerThread server = new ServerThread(Integer.parseInt(serverPortField.getText()));
+            ServerThread server = new ServerThread(Integer.parseInt(serverPortField.getText()), threadedBox.isSelected());
             server.start();
         } catch (IOException e) {
             e.printStackTrace();
