@@ -11,14 +11,15 @@ import java.net.Socket;
  * Date : 11/7/2016 at 2:15 PM.
  * Project : ClientServerBasics
  */
-public class ClientThread extends Thread {
+public class ClientThread extends CustomIOThread {
 
     private final Socket socket;
     private final String signature;
 
     public ClientThread(Socket s) {
         socket = s;
-        signature = "#socket@" + socket.getLocalSocketAddress().toString();
+        //    signature = "#socket@" + socket.getLocalSocketAddress().toString();
+        signature = "Me";
         setDaemon(true);
     }
 
@@ -26,16 +27,16 @@ public class ClientThread extends Thread {
         try {
             BufferedReader clientInputStream = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter clientOutputStream = new PrintWriter(socket.getOutputStream(), true);
-            BufferedReader instructor = new BufferedReader(new InputStreamReader(System.in));
+            checkStreams();
             String serverResponse;
-            System.out.println(signature + ": Socket initialized..\n" + signature + ": Waiting for server response..");
+            outputViewer.println(signature + ": Socket initialized..\n" + signature + ": Waiting for server response..");
             while (!((serverResponse = clientInputStream.readLine()).equals("stop"))) {
-                System.out.println(signature + ": Server responded : " + serverResponse);
-                System.out.print(signature + "~reply: ");
+                outputViewer.println("Server: " + serverResponse);
                 String instruction = instructor.readLine();
+                outputViewer.println(signature + ": " + instruction);
                 clientOutputStream.println(instruction);
             }
-            System.out.println(signature + ": Connection terminated by server!");
+            outputViewer.println(signature + ": Connection terminated by server!");
             clientInputStream.close();
             clientOutputStream.close();
             socket.close();

@@ -1,6 +1,5 @@
 package com.iamsubhranil.personal;
 
-import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -19,9 +18,9 @@ public class ClientController {
     public TextArea terminalField;
     public TextField commandField;
 
-    public void sendCommandAndErase(ActionEvent actionEvent) {
-        String instruction = commandField.getText();
-        commandField.setText("");
-        terminalField.appendText("\nMe : " + instruction);
+    public void setupAndStartThread(ClientThread clientThread) {
+        clientThread.setReader(new TextFieldReader(commandField));
+        clientThread.setWriter(new TextAreaWriter(terminalField));
+        clientThread.start();
     }
 }
