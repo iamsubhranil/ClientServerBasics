@@ -66,8 +66,9 @@ public class MainUIController implements Initializable {
         try {
             ServerThread server = new ServerThread(Integer.parseInt(serverPortField.getText()), threadedBox.isSelected());
             server.start();
+            serverCreationStatusLabel.setText("Server created.");
         } catch (IOException e) {
-            e.printStackTrace();
+            serverCreationStatusLabel.setText("Error : " + e.getMessage());
         }
     }
 }

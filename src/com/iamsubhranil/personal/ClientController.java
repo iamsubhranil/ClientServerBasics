@@ -20,5 +20,8 @@ public class ClientController {
     public TextField commandField;
 
     public void sendCommandAndErase(ActionEvent actionEvent) {
+        String instruction = commandField.getText();
+        commandField.setText("");
+        terminalField.appendText("\nMe : " + instruction);
     }
 }
