@@ -26,7 +26,7 @@
                                     text="Create" BorderPane.alignment="CENTER"/>
                         </right>
                     </BorderPane>
-                    <Label fx:id="clientCreationStatusLabel"/>
+                    <Label fx:id="clientCreationStatusLabel" wrapText="true"/>
                 </VBox>
                 <VBox prefHeight="428.0" prefWidth="291.0" spacing="10.0">
                     <Label text="New server :"/>
@@ -39,7 +39,7 @@
                                     text="Create" BorderPane.alignment="CENTER"/>
                         </right>
                     </BorderPane>
-                    <Label fx:id="serverCreationStatusLabel"/>
+                    <Label fx:id="serverCreationStatusLabel" wrapText="true"/>
                 </VBox>
             </HBox>
         </VBox>
