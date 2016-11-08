@@ -7,6 +7,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
+import java.net.Socket;
+
 /**
  * Author : Nil
  * Date : 11/7/2016 at 4:14 PM.
@@ -22,8 +24,14 @@ public class ClientController {
     public TextField commandField;
 
     public void setupAndStartThread(ClientThread clientThread) {
+        statusLabel.textProperty().bind(clientThread.statusProperty());
         clientThread.setReader(new TextFieldReader(commandField));
         clientThread.setWriter(new TextAreaWriter(terminalField));
         clientThread.start();
+        Socket socket = clientThread.getSocket();
+        remoteAddressLabel.setText("Remote address : " + socket.getInetAddress().getHostAddress());
+        localAddressLabel.setText("Local address : " + socket.getLocalAddress().getHostAddress());
+        remotePortLabel.setText("Remote port : " + socket.getPort());
+        localPortLabel.setText("Local port : " + socket.getLocalPort());
     }
 }

@@ -1,5 +1,9 @@
 package com.iamsubhranil.personal.threads;
 
+import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -15,34 +19,64 @@ public class ClientThread extends CustomIOThread {
 
     private final Socket socket;
     private final String signature;
+    private final SimpleStringProperty statusProperty = new SimpleStringProperty();
+    private boolean mayBeBound = false;
 
     public ClientThread(Socket s) {
         socket = s;
         //    signature = "#socket@" + socket.getLocalSocketAddress().toString();
         signature = "Me";
+        updateStatus("Initiating..");
         setDaemon(true);
+    }
+
+    private void updateStatus(String status) {
+        if (mayBeBound) {
+            Platform.runLater(() -> statusProperty.setValue("Status : " + status));
+        }
+    }
+
+    public StringProperty statusProperty() {
+        mayBeBound = true;
+        return statusProperty;
     }
 
     public void run() {
         try {
+            updateStatus("Initiating IO..");
             BufferedReader clientInputStream = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter clientOutputStream = new PrintWriter(socket.getOutputStream(), true);
             checkStreams();
             String serverResponse;
-            outputViewer.println(signature + ": Socket initialized..\n" + signature + ": Waiting for server response..");
+            updateStatus("Waiting for server..");
             while (!((serverResponse = clientInputStream.readLine()).equals("stop"))) {
+                try {
+                    if (!statusProperty.getValue().equals("Connected..")) {
+                        updateStatus("Connected..");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace(); //getting NPE
+                    System.out.println(statusProperty); //StringProperty [value: null]
+                }
                 outputViewer.println("Server: " + serverResponse);
                 String instruction = instructor.readLine();
                 outputViewer.println(signature + ": " + instruction);
                 clientOutputStream.println(instruction);
             }
-            outputViewer.println(signature + ": Connection terminated by server!");
+            updateStatus("Closing IO..");
             clientInputStream.close();
             clientOutputStream.close();
+            updateStatus("Closing socket..");
             socket.close();
+            updateStatus("Disconnected!");
+            outputViewer.println(signature + ": Connection terminated by server!");
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public Socket getSocket() {
+        return socket;
     }
 
 }
