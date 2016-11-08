@@ -1,4 +1,4 @@
-package com.iamsubhranil.personal;
+package com.iamsubhranil.personal.io;
 
 import javafx.scene.control.TextArea;
 

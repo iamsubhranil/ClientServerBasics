@@ -1,5 +1,7 @@
-package com.iamsubhranil.personal;
+package com.iamsubhranil.personal.ui;
 
+import com.iamsubhranil.personal.threads.ClientThread;
+import com.iamsubhranil.personal.threads.ServerThread;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -42,11 +44,11 @@ public class MainUIController implements Initializable {
     }
 
     private void loadClientUI(ClientThread clientThread) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ClientUI.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxmls/ClientUI.fxml"));
         Parent root = fxmlLoader.load();
         Stage stage = new Stage();
         Scene scene = new Scene(root);
-        ClientController clientController = fxmlLoader.<ClientController>getController();
+        ClientController clientController = fxmlLoader.getController();
         clientController.setupAndStartThread(clientThread);
         stage.setScene(scene);
         stage.show();

@@ -1,4 +1,4 @@
-package com.iamsubhranil.personal;
+package com.iamsubhranil.personal.threads;
 
 import java.io.BufferedReader;
 import java.io.IOException;

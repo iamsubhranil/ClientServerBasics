@@ -1,5 +1,8 @@
-package com.iamsubhranil.personal;
+package com.iamsubhranil.personal.ui;
 
+import com.iamsubhranil.personal.io.TextAreaWriter;
+import com.iamsubhranil.personal.io.TextFieldReader;
+import com.iamsubhranil.personal.threads.ClientThread;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
