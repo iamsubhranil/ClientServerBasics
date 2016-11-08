@@ -19,7 +19,7 @@ public class ClientThread extends CustomIOThread {
 
     private final Socket socket;
     private final String signature;
-    private final SimpleStringProperty statusProperty = new SimpleStringProperty();
+    private final SimpleStringProperty statusProperty = new SimpleStringProperty("Intermediate..");
     private boolean mayBeBound = false;
 
     public ClientThread(Socket s) {
@@ -50,13 +50,8 @@ public class ClientThread extends CustomIOThread {
             String serverResponse;
             updateStatus("Waiting for server..");
             while (!((serverResponse = clientInputStream.readLine()).equals("stop"))) {
-                try {
-                    if (!statusProperty.getValue().equals("Connected..")) {
-                        updateStatus("Connected..");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace(); //getting NPE
-                    System.out.println(statusProperty); //StringProperty [value: null]
+                if (!statusProperty.getValue().equals("Connected..")) {
+                    updateStatus("Connected..");
                 }
                 outputViewer.println("Server: " + serverResponse);
                 String instruction = instructor.readLine();
