@@ -60,9 +60,9 @@
 
     -dark: #1d1d1d;
 
-    -fx-base: -dark;
+    -fx-base: white;
     -fx-background: -fx-base;
-    -fx-contrast: white;
+    -fx-contrast: -dark;
 
     -fx-accent: #0063b1;
     -fx-accent-text: white;
@@ -1399,4 +1399,16 @@
 
 .fafxicons-selected{
     -fx-fill: -fx-accent-text;
+}
+
+.titled-pane > .title {
+    -fx-background-color: -fx-background;
+    -fx-font-size: 15pt;
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: -fx-text-base-color;
+}
+
+.titled-pane:focused {
+    -fx-color: -fx-base;
+    -fx-border-color: -fx-base;
 }
