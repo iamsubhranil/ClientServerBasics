@@ -1,0 +1,9 @@
+Created by Subhranil on 11/9/2016
+
+This is a concept file with following syntax for each concept.
+# Add the details of each connected, active and disconnected clients to the server
+* When a client connects to a port, request and log that to the server before let the client actually connect to it
+* When a client disconnects from the server, log the active time and messages to the server
+* THe server should capable of disconnecting any socket anytime it wants
+* The server can also suspend its connection to a socket and resume it anytime it wants
+* The server should give a client a MAX_TIME to reply before terminating the connection after giving the last reply
