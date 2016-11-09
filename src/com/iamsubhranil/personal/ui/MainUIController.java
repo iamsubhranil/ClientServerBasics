@@ -49,7 +49,7 @@ public class MainUIController implements Initializable {
         Stage stage = new Stage();
         Scene scene = new Scene(root);
         ClientController clientController = fxmlLoader.getController();
-        clientController.setupAndStartThread(clientThread);
+        clientController.setupAndStartThread(clientThread, stage);
         stage.setScene(scene);
         stage.show();
     }

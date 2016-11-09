@@ -19,11 +19,15 @@ public class ClientThread extends CustomIOThread {
 
     private final Socket socket;
     private final String signature;
+    private final BufferedReader clientInputStream;
+    private final PrintWriter clientOutputStream;
     private final SimpleStringProperty statusProperty = new SimpleStringProperty("Intermediate..");
     private boolean mayBeBound = false;
 
-    public ClientThread(Socket s) {
+    public ClientThread(Socket s) throws IOException {
         socket = s;
+        clientInputStream = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        clientOutputStream = new PrintWriter(socket.getOutputStream(), true);
         //    signature = "#socket@" + socket.getLocalSocketAddress().toString();
         signature = "Me";
         updateStatus("Initiating..");
@@ -41,11 +45,15 @@ public class ClientThread extends CustomIOThread {
         return statusProperty;
     }
 
+    public void close() throws IOException {
+        clientInputStream.close();
+        clientOutputStream.close();
+        socket.close();
+    }
+
     public void run() {
         try {
             updateStatus("Initiating IO..");
-            BufferedReader clientInputStream = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintWriter clientOutputStream = new PrintWriter(socket.getOutputStream(), true);
             checkStreams();
             String serverResponse;
             updateStatus("Waiting for server..");
@@ -58,11 +66,8 @@ public class ClientThread extends CustomIOThread {
                 outputViewer.println(signature + ": " + instruction);
                 clientOutputStream.println(instruction);
             }
-            updateStatus("Closing IO..");
-            clientInputStream.close();
-            clientOutputStream.close();
-            updateStatus("Closing socket..");
-            socket.close();
+            updateStatus("Closing IO and socket..");
+            close();
             updateStatus("Disconnected!");
             outputViewer.println(signature + ": Connection terminated by server!");
         } catch (IOException e) {

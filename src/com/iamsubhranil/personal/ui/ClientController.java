@@ -6,7 +6,9 @@ import com.iamsubhranil.personal.threads.ClientThread;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.Socket;
 
 /**
@@ -23,11 +25,19 @@ public class ClientController {
     public TextArea terminalField;
     public TextField commandField;
 
-    public void setupAndStartThread(ClientThread clientThread) {
+    public void setupAndStartThread(ClientThread clientThread, Stage s) {
         statusLabel.textProperty().bind(clientThread.statusProperty());
         clientThread.setReader(new TextFieldReader(commandField));
         clientThread.setWriter(new TextAreaWriter(terminalField));
         clientThread.start();
+        s.setOnCloseRequest(value -> {
+            try {
+                clientThread.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            clientThread.interrupt();
+        });
         Socket socket = clientThread.getSocket();
         remoteAddressLabel.setText("Remote address : " + socket.getInetAddress().getHostAddress());
         localAddressLabel.setText("Local address : " + socket.getLocalAddress().getHostAddress());
