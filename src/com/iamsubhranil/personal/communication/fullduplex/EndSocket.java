@@ -55,7 +55,7 @@ public class EndSocket extends CustomIO {
                         }
                         outputViewer.print("\n" + sign + " : ");
                         ch = inputStream.read();
-                        while (ch != -1 && ch != '\0') {
+                        while (ch != -1 && ch != '\n') {
                             try {
                                 outputViewer.print(String.format("%c", ch));
                             } catch (Exception r) {
@@ -81,7 +81,8 @@ public class EndSocket extends CustomIO {
         checkStreams();
         writeExecutorService.execute(() -> {
             try {
-                outputStream.write((response + '\0').getBytes());
+                outputStream.write((response + "\r\n").getBytes());
+                outputStream.flush();
                 if (prevWasRep) {
                     outputViewer.print("\n");
                     prevWasRep = false;
