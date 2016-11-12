@@ -54,16 +54,19 @@ public class EndSocket extends CustomIO {
                             outputViewer.print("\n");
                         }
                         outputViewer.print("\n" + sign + " : ");
-                        while ((ch = inputStream.read()) != '\0') {
+                        ch = inputStream.read();
+                        while (ch != -1 && ch != '\0') {
                             try {
                                 outputViewer.print(String.format("%c", ch));
                             } catch (Exception r) {
                                 System.out.println("Error in format : " + ch);
                             }
                             prevWasRep = true;
+                            ch = inputStream.read();
                         }
                     }
                 } catch (IOException e) {
+                    System.out.println("Error in EndSocket:68");
                     e.printStackTrace();
                 }
             }
@@ -78,7 +81,7 @@ public class EndSocket extends CustomIO {
         checkStreams();
         writeExecutorService.execute(() -> {
             try {
-                outputStream.write((response + "\0").getBytes());
+                outputStream.write((response + '\0').getBytes());
                 if (prevWasRep) {
                     outputViewer.print("\n");
                     prevWasRep = false;
