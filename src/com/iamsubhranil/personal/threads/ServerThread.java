@@ -1,5 +1,13 @@
 package com.iamsubhranil.personal.threads;
 
+import com.iamsubhranil.personal.threads.fullduplex.EndSocket;
+import com.iamsubhranil.personal.ui.controllers.BasicServerUIController;
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -25,6 +33,19 @@ public class ServerThread extends CustomIOThread {
 
     }
 
+    private void loadServerResponseUI(EndSocket endSocket) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../ui/fxmls/BasicServerUI.fxml"));
+        Parent root = fxmlLoader.load();
+        BasicServerUIController basicServerUIController = fxmlLoader.getController();
+        basicServerUIController.setSocket(endSocket);
+        Platform.runLater(() -> {
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        });
+    }
+
     public void run() {
         checkStreams();
         while (!serverSocket.isClosed()) {
@@ -34,16 +55,20 @@ public class ServerThread extends CustomIOThread {
                 incomingConnection = serverSocket.accept();
                 outputViewer.println(signature + ": Connection accepted from port " + incomingConnection.getPort() + "..");
                 outputViewer.println(signature + ": Setting up client..");
-                ClientServerThread clientServerThread = new ClientServerThread(incomingConnection, signature);
+                //   ClientServerThread clientServerThread = new ClientServerThread(incomingConnection, signature);
+                EndSocket endSocket = new EndSocket(incomingConnection, true);
+                loadServerResponseUI(endSocket);
                 outputViewer.println(signature + ": Starting client..");
                 outputViewer.println(signature + ": SupportMultiple : " + acceptMultipleClients);
-                if (acceptMultipleClients) {
+            /*    if (acceptMultipleClients) {
                     clientServerThread.start();
                 } else {
                     clientServerThread.run();
                 }
+                */
             } catch (Exception e) {
                 outputViewer.println(signature + ": Error occurred while accepting connection!");
+                e.printStackTrace();
             }
         }
     }

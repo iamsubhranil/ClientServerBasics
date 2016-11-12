@@ -1,7 +1,7 @@
-package com.iamsubhranil.personal.ui;
+package com.iamsubhranil.personal.ui.controllers;
 
-import com.iamsubhranil.personal.threads.ClientThread;
 import com.iamsubhranil.personal.threads.ServerThread;
+import com.iamsubhranil.personal.threads.fullduplex.EndSocket;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -43,13 +43,14 @@ public class MainUIController implements Initializable {
 
     }
 
-    private void loadClientUI(ClientThread clientThread) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxmls/ClientUI.fxml"));
+    private void loadClientUI(EndSocket endSocket) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxmls/ClientUI.fxml"));
         Parent root = fxmlLoader.load();
         Stage stage = new Stage();
         Scene scene = new Scene(root);
         ClientController clientController = fxmlLoader.getController();
-        clientController.setupAndStartThread(clientThread, stage);
+        //clientController.setupAndStartThread(clientThread, stage);
+        clientController.setupAndStartDuplex(endSocket);
         stage.setScene(scene);
         stage.show();
     }
@@ -58,8 +59,7 @@ public class MainUIController implements Initializable {
     public void createClient(ActionEvent actionEvent) {
         try {
             Socket socket = new Socket(serverIPField.getText(), Integer.parseInt(connectionPortField.getText()));
-            ClientThread clientThread = new ClientThread(socket);
-            loadClientUI(clientThread);
+            loadClientUI(new EndSocket(socket, false));
             clientCreationStatusLabel.setText("Successfully created client.");
         } catch (UnknownHostException e) {
             clientCreationStatusLabel.setText("Unknown host!");
