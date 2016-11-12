@@ -1,4 +1,6 @@
-package com.iamsubhranil.personal.threads;
+package com.iamsubhranil.personal.threads.simplex;
+
+import com.iamsubhranil.personal.threads.CustomIOThread;
 
 import java.io.*;
 import java.net.Socket;
