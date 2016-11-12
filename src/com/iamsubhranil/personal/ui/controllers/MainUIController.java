@@ -44,7 +44,8 @@ public class MainUIController implements Initializable {
     }
 
     private void loadClientUI(EndSocket endSocket) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxmls/ClientUI.fxml"));
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("com/iamsubhranil/personal/ui/fxmls/ClientUI.fxml"));
         Parent root = fxmlLoader.load();
         Stage stage = new Stage();
         Scene scene = new Scene(root);
@@ -84,6 +85,8 @@ public class MainUIController implements Initializable {
             serverCreationStatusLabel.setText("Server created.");
         } catch (IOException e) {
             serverCreationStatusLabel.setText("Error : " + e.getMessage());
+        } catch (NumberFormatException e) {
+            serverCreationStatusLabel.setText("Port must be an integer!");
         }
     }
 }

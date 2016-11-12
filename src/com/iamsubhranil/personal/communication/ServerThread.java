@@ -35,7 +35,7 @@ public class ServerThread extends CustomIOThread {
     }
 
     private void loadServerResponseUI(EndSocket endSocket) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../ui/fxmls/BasicServerUI.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("com/iamsubhranil/personal/ui/fxmls/BasicServerUI.fxml"));
         Parent root = fxmlLoader.load();
         BasicServerUIController basicServerUIController = fxmlLoader.getController();
         basicServerUIController.setSocket(endSocket);
