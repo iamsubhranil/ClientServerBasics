@@ -1,6 +1,7 @@
-package com.iamsubhranil.personal.threads;
+package com.iamsubhranil.personal.communication;
 
-import com.iamsubhranil.personal.threads.fullduplex.EndSocket;
+import com.iamsubhranil.personal.communication.fullduplex.EndSocket;
+import com.iamsubhranil.personal.communication.simplex.CustomIOThread;
 import com.iamsubhranil.personal.ui.controllers.BasicServerUIController;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;

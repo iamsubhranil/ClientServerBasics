@@ -1,6 +1,5 @@
-package com.iamsubhranil.personal.threads.simplex;
+package com.iamsubhranil.personal.communication.simplex;
 
-import com.iamsubhranil.personal.threads.CustomIOThread;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;

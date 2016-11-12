@@ -1,4 +1,4 @@
-package com.iamsubhranil.personal.threads.fullduplex;
+package com.iamsubhranil.personal.communication.fullduplex;
 
 import java.io.PrintWriter;
 import java.io.Writer;

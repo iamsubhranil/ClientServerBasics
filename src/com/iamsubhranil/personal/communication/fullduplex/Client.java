@@ -1,4 +1,4 @@
-package com.iamsubhranil.personal.threads.fullduplex;
+package com.iamsubhranil.personal.communication.fullduplex;
 
 /**
  * Author : Nil

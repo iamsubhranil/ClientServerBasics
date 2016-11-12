@@ -1,4 +1,4 @@
-package com.iamsubhranil.personal.threads;
+package com.iamsubhranil.personal.communication.simplex;
 
 import java.io.*;
 

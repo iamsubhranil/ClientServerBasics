@@ -1,7 +1,7 @@
 package com.iamsubhranil.personal.ui.controllers;
 
+import com.iamsubhranil.personal.communication.fullduplex.EndSocket;
 import com.iamsubhranil.personal.io.TextAreaWriter;
-import com.iamsubhranil.personal.threads.fullduplex.EndSocket;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
