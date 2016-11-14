@@ -44,7 +44,6 @@ public class MainUIController implements Initializable {
     }
 
     private void loadClientUI(EndSocket endSocket) throws IOException {
-
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("com/iamsubhranil/personal/ui/fxmls/ClientUI.fxml"));
         Parent root = fxmlLoader.load();
         Stage stage = new Stage();
@@ -52,6 +51,17 @@ public class MainUIController implements Initializable {
         ClientController clientController = fxmlLoader.getController();
         //clientController.setupAndStartThread(clientThread, stage);
         clientController.setupAndStartDuplex(endSocket);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    private void loadServerUI(ServerThread serverThread) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("com/iamsubhranil/personal/ui/fxmls/ServerUI.fxml"));
+        Parent root = fxmlLoader.load();
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        ServerUIController serverUIController = fxmlLoader.getController();
+        serverUIController.setup(serverThread);
         stage.setScene(scene);
         stage.show();
     }
@@ -81,7 +91,7 @@ public class MainUIController implements Initializable {
     public void createServer(ActionEvent actionEvent) {
         try {
             ServerThread server = new ServerThread(Integer.parseInt(serverPortField.getText()), threadedBox.isSelected());
-            server.start();
+            loadServerUI(server);
             serverCreationStatusLabel.setText("Server created.");
         } catch (IOException e) {
             serverCreationStatusLabel.setText("Error : " + e.getMessage());

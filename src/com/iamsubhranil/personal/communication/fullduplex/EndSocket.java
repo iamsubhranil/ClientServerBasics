@@ -1,5 +1,7 @@
 package com.iamsubhranil.personal.communication.fullduplex;
 
+import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -20,16 +22,24 @@ public class EndSocket extends CustomIO {
     private final ExecutorService writeExecutorService;
     private final InputStream inputStream;
     private final OutputStream outputStream;
+    private final Object locker;
     private String sign = "Server";
     private boolean isServer = true;
     private boolean prevWasRep = false;
+    private boolean hasLocker = false;
 
     public EndSocket(Socket s, boolean isServe) throws IOException {
+        this(s, isServe, null);
+    }
+
+    public EndSocket(Socket s, boolean isServr, Object lock) throws IOException {
         endSocket = s;
         inputStream = endSocket.getInputStream();
         outputStream = endSocket.getOutputStream();
-        sign = isServe ? "Client" : "Server";
-        isServer = isServe;
+        sign = isServr ? "Client" : "Server";
+        isServer = isServr;
+        locker = lock == null ? new Object() : lock;
+        hasLocker = lock != null;
         ThreadFactory daemonThreadFactory = r -> {
             Thread t = new Thread(r);
             t.setDaemon(true);
@@ -37,6 +47,31 @@ public class EndSocket extends CustomIO {
         };
         readExecutorService = Executors.newSingleThreadExecutor(daemonThreadFactory);
         writeExecutorService = Executors.newSingleThreadExecutor(daemonThreadFactory);
+    }
+
+    public void setStage(Stage s) {
+        s.setOnCloseRequest(e -> {
+            try {
+                close();
+            } catch (IOException ignored) {
+            }
+        });
+    }
+
+    public void close() throws IOException {
+        synchronized (locker) {
+            inputStream.close();
+            readExecutorService.shutdownNow();
+            writeExecutorService.shutdownNow();
+            outputStream.close();
+            endSocket.close();
+            if (hasLocker) {
+                try {
+                    locker.notify();
+                } catch (Exception ignored) {
+                }
+            }
+        }
     }
 
     public void startReadExecutor() {
@@ -87,7 +122,7 @@ public class EndSocket extends CustomIO {
                     outputViewer.print("\n");
                     prevWasRep = false;
                 }
-                outputViewer.print("\nMe : " + response);
+                outputViewer.print("\n~# : " + response);
             } catch (IOException e) {
                 e.printStackTrace();
             }

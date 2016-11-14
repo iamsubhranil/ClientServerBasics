@@ -23,15 +23,20 @@ public class ServerThread extends CustomIOThread {
     private final ServerSocket serverSocket;
     private final boolean acceptMultipleClients;
     private final String signature;
+    private final Object locker = new Object();
 
     public ServerThread(int port, boolean acceptMultiple) throws IOException {
 
         serverSocket = new ServerSocket(port);
         acceptMultipleClients = acceptMultiple;
         //   signature = "#server@" + serverSocket.getLocalPort();
-        signature = "Me";
+        signature = "~#";
         setDaemon(true);
 
+    }
+
+    public ServerSocket getServerSocket() {
+        return serverSocket;
     }
 
     private void loadServerResponseUI(EndSocket endSocket) throws IOException {
@@ -43,6 +48,7 @@ public class ServerThread extends CustomIOThread {
             Stage stage = new Stage();
             Scene scene = new Scene(root);
             stage.setScene(scene);
+            endSocket.setStage(stage);
             stage.show();
         });
     }
@@ -55,18 +61,20 @@ public class ServerThread extends CustomIOThread {
                 outputViewer.println(signature + ": Waiting for inbound connections..");
                 incomingConnection = serverSocket.accept();
                 outputViewer.println(signature + ": Connection accepted from port " + incomingConnection.getPort() + "..");
-                outputViewer.println(signature + ": Setting up client..");
+                outputViewer.println(signature + ": Setting up connection..");
                 //   ClientServerThread clientServerThread = new ClientServerThread(incomingConnection, signature);
-                EndSocket endSocket = new EndSocket(incomingConnection, true);
+                EndSocket endSocket = new EndSocket(incomingConnection, true, acceptMultipleClients ? null : locker);
+                outputViewer.println(signature + ": Setting up response UI..");
                 loadServerResponseUI(endSocket);
-                outputViewer.println(signature + ": Starting client..");
+                outputViewer.println(signature + ": Starting connection..");
                 outputViewer.println(signature + ": SupportMultiple : " + acceptMultipleClients);
-            /*    if (acceptMultipleClients) {
-                    clientServerThread.start();
-                } else {
-                    clientServerThread.run();
+                if (!acceptMultipleClients) {
+                    outputViewer.println(signature + ": Waiting for the client to disconnect..");
+                    synchronized (locker) {
+                        locker.wait();
+                    }
+                    outputViewer.println(signature + ": Client disconnected from port " + incomingConnection.getPort() + "..");
                 }
-                */
             } catch (Exception e) {
                 outputViewer.println(signature + ": Error occurred while accepting connection!");
                 e.printStackTrace();
