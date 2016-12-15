@@ -52,6 +52,8 @@ public class MainUIController implements Initializable {
         //clientController.setupAndStartThread(clientThread, stage);
         clientController.setupAndStartDuplex(endSocket);
         stage.setScene(scene);
+        endSocket.setStage(stage);
+        stage.setTitle("Client@" + endSocket.getSocket().getLocalPort() + "->Server@" + endSocket.getSocket().getRemoteSocketAddress().toString());
         stage.show();
     }
 
@@ -63,6 +65,7 @@ public class MainUIController implements Initializable {
         ServerUIController serverUIController = fxmlLoader.getController();
         serverUIController.setup(serverThread);
         stage.setScene(scene);
+        stage.setTitle("Server@" + serverThread.getServerSocket().getLocalPort());
         stage.show();
     }
 

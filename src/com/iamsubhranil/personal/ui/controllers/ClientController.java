@@ -1,15 +1,11 @@
 package com.iamsubhranil.personal.ui.controllers;
 
 import com.iamsubhranil.personal.communication.fullduplex.EndSocket;
-import com.iamsubhranil.personal.communication.simplex.ClientThread;
 import com.iamsubhranil.personal.io.TextAreaWriter;
-import com.iamsubhranil.personal.io.TextFieldReader;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.Socket;
 
 /**
@@ -41,22 +37,5 @@ public class ClientController {
         localAddressLabel.setText("Local address : " + socket.getLocalAddress().getHostAddress());
         remotePortLabel.setText("Remote port : " + socket.getPort());
         localPortLabel.setText("Local port : " + socket.getLocalPort());
-    }
-
-    public void setupAndStartThread(ClientThread clientThread, Stage s) {
-        statusLabel.textProperty().bind(clientThread.statusProperty());
-        clientThread.setReader(new TextFieldReader(commandField));
-        clientThread.setWriter(new TextAreaWriter(terminalField));
-        clientThread.start();
-        s.setOnCloseRequest(value -> {
-            try {
-                clientThread.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            clientThread.interrupt();
-        });
-        Socket socket = clientThread.getSocket();
-        decorate(socket);
     }
 }

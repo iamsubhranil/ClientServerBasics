@@ -49,6 +49,7 @@ public class ServerThread extends CustomIOThread {
             Scene scene = new Scene(root);
             stage.setScene(scene);
             endSocket.setStage(stage);
+            stage.setTitle("Server@" + serverSocket.getLocalPort() + "->Client@" + endSocket.getSocket().getInetAddress().getHostAddress() + "/" + endSocket.getSocket().getPort());
             stage.show();
         });
     }

@@ -60,6 +60,7 @@ public class EndSocket extends CustomIO {
 
     public void close() throws IOException {
         synchronized (locker) {
+            writeAll("Connection closed by " + sign + "!");
             inputStream.close();
             readExecutorService.shutdownNow();
             writeExecutorService.shutdownNow();
