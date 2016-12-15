@@ -156,44 +156,44 @@
 
 .label{
     -fx-font-size: 15pt;
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Open Sans Regular";
     -fx-text-fill: -fx-text-base-color;
 }
 
 .header{
     -fx-font-size: 46pt;
-    -fx-font-family: "Segoe UI Semilight";
+    -fx-font-family: "Open Sans Light";
     -fx-text-fill: -fx-text-base-color;
 }
 
 .subheader, .label-big{
     -fx-font-size: 34pt;
-    -fx-font-family: "Segoe UI Semilight";
+    -fx-font-family: "Open Sans Light";
     -fx-text-fill: -fx-text-base-color;
 }
 
 .title, .label-med-big{
     -fx-font-size: 24pt;
-    -fx-font-family: "Segoe UI Semilight";
+    -fx-font-family: "Open Sans Light";
     -fx-text-fill: -fx-text-base-color;
 }
 
 .subtitle{
     -fx-font-size: 20pt;
-    -fx-font-family: "Segoe UI Semilight";
+    -fx-font-family: "Open Sans Light";
     -fx-text-fill: -fx-text-base-color;
 }
 
 .item-title{
     -fx-font-size: 15pt;
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Open Sans Regular";
     -fx-text-fill: -fx-text-base-color;
     -fx-opacity: 0.6;
 }
 
 .item-title-small{
     -fx-font-size: 12pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Open Sans Semibold";
     -fx-text-fill: -fx-text-base-color;
     -fx-opacity: 0.6;
 }
@@ -214,7 +214,7 @@
 
     -fx-background-color: transparent;
 
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Open Sans Semibold";
     -fx-font-size: 15pt;
     -fx-text-fill: -fx-button-text-fill;
 }
@@ -222,7 +222,7 @@
 .button-noborder, .button-noborder:focused, .button-noborder:pressed, .button-noborder:default, .button-noborder:focused, .button-noborder:default:hover:pressed{
 	-fx-border-width: 0;
 	-fx-padding: 5 5 5 5;
-	-fx-font-family: "Segoe UI";
+	-fx-font-family: "Open Sans Regular";
 }
 
 .button:hover{
@@ -275,7 +275,7 @@
 
     -fx-background-color: #000000;
 
-    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-family: "Open Sans Regular", Helvetica, Arial, sans-serif;
     -fx-font-size: 11pt;
     -fx-text-fill: #d8d8d8;
 }
@@ -318,7 +318,7 @@
 .check-box {
     -fx-text-fill: -fx-text-base-color;
     -fx-font-size: 15pt;
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Open Sans Regular";
 }
 
 
@@ -508,7 +508,7 @@
 
     -fx-padding: 4 4 4 4;  /*4 8 4 8 */
 
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Open Sans Regular";
     -fx-font-size: 12pt;
     -fx-text-fill: rgba(0, 0, 0);
 
@@ -544,7 +544,7 @@
 .menu-item .label {
     -fx-padding: 0em 1.333332em 0em 0em;
     -fx-text-fill: #212121;
-    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-family: "Open Sans Regular", Helvetica, Arial, sans-serif;
     -fx-font-size: 11pt;
 }
 
@@ -688,7 +688,7 @@
     -fx-background-radius: 0, 0, 0, 0;
     -fx-padding: 0em 0.166667em 0em 0.166667em; /* 0 2px 0 2px*/
 
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Open Sans Regular";
     -fx-font-size: 11pt;
 }
 
@@ -737,7 +737,7 @@
 }
 
 .combo-box > .list-cell {
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Open Sans Regular";
     -fx-font-size: 15pt;
     -fx-background-color: #d2d2d2;
     -fx-text-fill: black;
@@ -745,7 +745,7 @@
 }
 
 .combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell {
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Open Sans Regular";
     -fx-font-size: 15pt;
     -fx-text-fill: -fx-contrast;
 }
@@ -826,7 +826,7 @@
 }
 
 .list-cell {
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Open Sans Regular";
     -fx-font-size: 15pt;
 }
 
@@ -1157,7 +1157,7 @@
 
 .table-view .column-header .label{
     -fx-font-size: 15pt;
-    -fx-font-family: "Segoe UI Semilight";
+    -fx-font-family: "Open Sans Light";
     -fx-background-color: -fx-background;
     -fx-text-fill: -fx-text-base-color;
 }
@@ -1169,7 +1169,7 @@
     -fx-border-width: 0;
 }
 .table-cell {
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Open Sans Semibold";
     -fx-font-size: 11pt;
 }
 
@@ -1276,7 +1276,7 @@
     -fx-text-fill: #000000;
     -fx-background-color: #d2d2d2;
     -fx-font-size: 12pt;
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Open Sans Regular";
     -fx-border-width: 0;
 
     -fx-highlight-fill: -fx-accent; /* TODO: this probably is the "active" color" */
@@ -1308,7 +1308,7 @@
     -fx-padding: 1.333em 0.833em 0 0.833em; /* 16px 10px 0px 10px */
     -fx-font-size: 20; /* 14px */
     -fx-wrap-text: true;
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Open Sans Regular";
 }
 
 .dialog-pane > .content {
@@ -1329,7 +1329,7 @@
 .dialog-pane:header .header-panel .label {
     -fx-font-size: 25; /* 14px */
     -fx-wrap-text: true;
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Open Sans Regular";
     -fx-text-fill: white;
 }
 
@@ -1341,14 +1341,14 @@
 
 .dialog-pane > .button-bar > .container > .details-button.more {
     -fx-graphic: url("checkboxUnmarked.png");
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Open Sans Regular";
     -fx-text-fill: -fx-contrast;
     -fx-font-size: 14;
 }
 
 .dialog-pane > .button-bar > .container > .details-button.less {
     -fx-graphic: url("checkboxMarked.png");
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Open Sans Regular";
     -fx-text-fill: -fx-contrast;
     -fx-font-size: 14;
 }
@@ -1372,7 +1372,7 @@
 
 .tree-cell{
     -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Open Sans Semibold";
     -fx-text-fill: -fx-contrast;
 }
 
@@ -1404,7 +1404,7 @@
 .titled-pane > .title {
     -fx-background-color: -fx-background;
     -fx-font-size: 15pt;
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Open Sans Regular";
     -fx-text-fill: -fx-text-base-color;
 }
 
