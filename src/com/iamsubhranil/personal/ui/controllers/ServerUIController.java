@@ -1,6 +1,6 @@
 package com.iamsubhranil.personal.ui.controllers;
 
-import com.iamsubhranil.personal.communication.ServerThread;
+import com.iamsubhranil.personal.communication.server.ServerThread;
 import com.iamsubhranil.personal.io.TextAreaWriter;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;

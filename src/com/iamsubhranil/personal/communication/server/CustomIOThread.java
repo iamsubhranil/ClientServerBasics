@@ -1,4 +1,4 @@
-package com.iamsubhranil.personal.communication.simplex;
+package com.iamsubhranil.personal.communication.server;
 
 import java.io.*;
 

@@ -1,7 +1,7 @@
 package com.iamsubhranil.personal.ui.controllers;
 
-import com.iamsubhranil.personal.communication.ServerThread;
 import com.iamsubhranil.personal.communication.fullduplex.EndSocket;
+import com.iamsubhranil.personal.communication.server.ServerThread;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
